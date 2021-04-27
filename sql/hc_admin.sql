@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2021-04-17 17:51:43
+Date: 2021-04-27 15:55:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,11 +29,16 @@ CREATE TABLE `permission` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
+INSERT INTO `permission` VALUES ('1', '首页', '0', 'dashboard', '2', '1', '2021-04-19 10:34:34', '2021-04-19 10:34:39');
+INSERT INTO `permission` VALUES ('2', '权限', '0', 'admin', '1', '1', '2021-04-19 10:37:39', '2021-04-19 10:37:42');
+INSERT INTO `permission` VALUES ('3', '用户', '2', 'user', '2', '1', '2021-04-19 10:38:02', '2021-04-19 10:38:05');
+INSERT INTO `permission` VALUES ('4', '角色', '2', 'role', '2', '1', '2021-04-19 10:38:23', '2021-04-19 10:38:26');
+INSERT INTO `permission` VALUES ('5', '菜单', '2', 'menu', '2', '1', '2021-04-19 10:38:49', '2021-04-19 10:38:53');
 
 -- ----------------------------
 -- Table structure for role
@@ -41,18 +46,19 @@ CREATE TABLE `permission` (
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role` int(11) DEFAULT '2',
+  `role` varchar(255) DEFAULT '2',
   `description` varchar(255) DEFAULT '普通用户',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', '1', '超级管理员', '2021-04-17 15:00:48', '2021-04-17 15:00:52');
-INSERT INTO `role` VALUES ('2', '2', '普通用户', '2021-04-17 15:01:44', '2021-04-17 15:01:47');
+INSERT INTO `role` VALUES ('1', '超级管理员', '超级管理员', '2021-04-20 11:03:50', '2021-04-20 12:55:09');
+INSERT INTO `role` VALUES ('2', '普通用户', '普通用户', '2021-04-17 15:01:44', '2021-04-17 15:01:47');
+INSERT INTO `role` VALUES ('6', '测试', '测试人员', '2021-04-20 10:47:11', '2021-04-20 12:55:24');
 
 -- ----------------------------
 -- Table structure for role_permission_connect
@@ -73,6 +79,14 @@ CREATE TABLE `role_permission_connect` (
 -- ----------------------------
 -- Records of role_permission_connect
 -- ----------------------------
+INSERT INTO `role_permission_connect` VALUES ('1', '1', '2021-04-20 12:55:09', '2021-04-20 12:55:09');
+INSERT INTO `role_permission_connect` VALUES ('1', '2', '2021-04-20 12:55:09', '2021-04-20 12:55:09');
+INSERT INTO `role_permission_connect` VALUES ('1', '3', '2021-04-20 12:55:09', '2021-04-20 12:55:09');
+INSERT INTO `role_permission_connect` VALUES ('1', '4', '2021-04-20 12:55:09', '2021-04-20 12:55:09');
+INSERT INTO `role_permission_connect` VALUES ('1', '5', '2021-04-20 12:55:09', '2021-04-20 12:55:09');
+INSERT INTO `role_permission_connect` VALUES ('2', '1', '2021-04-19 11:34:59', '2021-04-19 11:35:02');
+INSERT INTO `role_permission_connect` VALUES ('6', '2', '2021-04-20 12:55:24', '2021-04-20 12:55:24');
+INSERT INTO `role_permission_connect` VALUES ('6', '5', '2021-04-20 12:55:24', '2021-04-20 12:55:24');
 
 -- ----------------------------
 -- Table structure for user
@@ -87,13 +101,13 @@ CREATE TABLE `user` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '', 'admin', '123456', '1', '2021-04-17 14:59:57', '2021-04-17 15:00:02');
-INSERT INTO `user` VALUES ('3', null, 'hc-admin', '$2a$10$jSkK2ZDSrVs9FC5zS4dTKeGQlrCFMbnuDb6HbaJtTxbVdSLfaS4LK', '1', '2021-04-17 16:53:28', '2021-04-17 16:53:28');
+INSERT INTO `user` VALUES ('1', null, 'admin', '$2a$10$FHrne8vhIAzmjcx9uvXdF.zCL8Ye//qI5Y1h9/ars3CIs7GMve.QS', '1', '2021-04-20 11:39:43', '2021-04-20 12:07:35');
+INSERT INTO `user` VALUES ('2', null, 'hc-admin', '$2a$10$jSkK2ZDSrVs9FC5zS4dTKeGQlrCFMbnuDb6HbaJtTxbVdSLfaS4LK', '1', '2021-04-17 16:53:28', '2021-04-20 12:57:23');
 
 -- ----------------------------
 -- Table structure for user_role_connect
@@ -114,5 +128,5 @@ CREATE TABLE `user_role_connect` (
 -- ----------------------------
 -- Records of user_role_connect
 -- ----------------------------
-INSERT INTO `user_role_connect` VALUES ('1', '1', '2021-04-17 15:01:15', '2021-04-17 15:01:18');
-INSERT INTO `user_role_connect` VALUES ('3', '2', '2021-04-17 16:53:28', '2021-04-17 16:53:28');
+INSERT INTO `user_role_connect` VALUES ('1', '1', '2021-04-20 12:58:00', '2021-04-20 12:58:02');
+INSERT INTO `user_role_connect` VALUES ('2', '1', '2021-04-17 16:53:28', '2021-04-20 12:57:23');

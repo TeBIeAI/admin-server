@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken')
 
 const users = require('./routes/user')
 const roles = require('./routes/roles')
+const permission = require('./routes/permission')
 
 // error handler
 onerror(app)
@@ -74,6 +75,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(users.routes(), users.allowedMethods())
 app.use(roles.routes(), roles.allowedMethods())
+app.use(permission.routes(), permission.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

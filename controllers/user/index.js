@@ -93,7 +93,7 @@ class User {
       }
     }
     if (role) {
-      roleWhere.role = role
+      roleWhere.id = role
     }
 
     const params = {
@@ -105,7 +105,6 @@ class User {
           through: {
             attributes: []
           },
-          attributes: ['role'],
           where: roleWhere
         }
       ],
@@ -116,27 +115,7 @@ class User {
     let [count] = await Promise.all([UserModel.findAndCountAll(params)])
     const total = count.count
     let rows = count.rows
-    console.log(111111, rows)
 
-    // let { count, rows } = await UserModel.findAndCountAll({
-    //   attributes: ['id', 'createdAt', 'enable', 'username'],
-    //   include: [
-    //     {
-    //       model: RoleModel,
-    //       through: {
-    //         attributes: []
-    //       },
-    //       attributes: ['role'],
-    //       where: {
-    //         role: {
-    //           [Op.like]: `%${params.role}%`
-    //         }
-    //       }
-    //     }
-    //   ],
-    //   limit: pageSize,
-    //   offset: (page - 1) * pageSize
-    // })
     rows = JSON.parse(JSON.stringify(rows))
     rows = rows.map(user => {
       user.role = user.roles.length ? user.roles[0].role : 'user'
@@ -152,7 +131,7 @@ class User {
         await UserModel.update(
           {
             username,
-            enable,
+            enable: enable ? 1 : 0,
             role
           },
           {
@@ -171,6 +150,7 @@ class User {
             }
           )
         }
+        console.log(33333333333333)
         return (ctx.body = {
           code: SUCCESS_CODE,
           msg: '操作成功'
@@ -183,7 +163,7 @@ class User {
             msg: '用户已存在'
           })
         const users = await UserModel.create({
-          enable,
+          enable: enable ? 1 : 0,
           password,
           username
         })
@@ -206,7 +186,7 @@ class User {
 
   async delUser(ctx) {
     const { id } = ctx.query
-    if (id == 1) {
+    if (id === 1 || id === 2) {
       return (ctx.body = {
         code: ERROR_CODE,
         msg: '不能删除admin超级管理员'

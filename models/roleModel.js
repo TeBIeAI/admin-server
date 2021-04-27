@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 module.exports = sequelize => {
   return sequelize.define('role', {
     role: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       defaultValue: 2
     },
     description: {
